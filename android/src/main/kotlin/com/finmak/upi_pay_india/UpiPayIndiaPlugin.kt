@@ -2,6 +2,7 @@ package com.finmak.upi_pay_india
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
@@ -148,10 +149,8 @@ class UpiPayIndiaPlugin: MethodCallHandler, FlutterPlugin, ActivityAware {
 
 
     try {
-      //val activities = packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
-      val activities = packageManager.getInstalledApplications(0)
-
-      Log.d("TAG", activities.toString())
+      //val acti = packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
+      val activities = packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
 
       val activityResponse = activities.map {
         val packageName = it.packageName
@@ -174,7 +173,7 @@ class UpiPayIndiaPlugin: MethodCallHandler, FlutterPlugin, ActivityAware {
 
       result?.success(activityResponse)
     } catch (ex: Exception) {
-      Log.e("upi_pay", ex.toString())
+      Log.e("upi_pay_india", ex.toString())
       result?.error("getInstalledUpiApps", "exception", ex)
     }
   }
