@@ -22,6 +22,8 @@ import io.flutter.plugin.common.PluginRegistry.Registrar
 import java.io.ByteArrayOutputStream
 import com.finmak.upi_pay_india.Util.Companion.convertAppToMap
 import com.finmak.upi_pay_india.Util.Companion.getPackageManager
+
+
 /** UpiPayIndiaPlugin */
 
 class UpiPayIndiaPlugin: MethodCallHandler, FlutterPlugin, ActivityAware {
@@ -84,9 +86,17 @@ class UpiPayIndiaPlugin: MethodCallHandler, FlutterPlugin, ActivityAware {
       if(tn != null) {
         uriStr += ("&tn=" + Uri.encode(tn))
       }
-      uriStr += "&mode=00" // &orgid=000000"
+      uriStr += "&mode=05" // &orgid=000000"
+      uriStr += "&orgid=000000"
+
+      val ecode = Base64.encodeToString(uriStr.toString().toByteArray(), Base64.DEFAULT)
+      if(ecode !=null){
+        uriStr += ("&sign=" + Uri.encode(ecode))
+      }
+
       val uri = Uri.parse(uriStr)
-      //Log.d("upi_pay", "initiateTransaction URI: " + uri.toString())
+
+      Log.d("upi_pay", "initiateTransaction URI: $uri")
 
       val intent = Intent(Intent.ACTION_VIEW, uri)
       intent.setPackage(app)
