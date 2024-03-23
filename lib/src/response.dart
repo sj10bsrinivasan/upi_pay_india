@@ -50,42 +50,42 @@ class UpiTransactionResponse {
   /// Parses the response as per the [UPI Linking Specification](https://www.npci.org.in/sites/default/files/UPI%20Linking%20Specs_ver%201.6.pdf)
   /// to populate Android-specific attributes.
   UpiTransactionResponse.android(String responseString) {
-    this._rawResponse = responseString;
+    _rawResponse = responseString;
     // Consider the response to be failure if success or submitted is not explicitly returned.
-    this._status = UpiTransactionStatus.failure;
+    _status = UpiTransactionStatus.failure;
     List<String> fragments = responseString.split('&');
-    fragments.forEach((fragment) {
+    for (var fragment in fragments) {
       List<String> keyValuePair = fragment.split('=');
       String normalizedKey = keyValuePair.first.toLowerCase();
       String value = keyValuePair.last;
       switch (normalizedKey) {
         case 'txnid':
-          this._txnId = value;
+          _txnId = value;
           break;
         case 'responsecode':
-          this._responseCode = value;
+          _responseCode = value;
           break;
         case 'approvalrefno':
-          this._approvalRefNo = value;
+          _approvalRefNo = value;
           break;
         case 'status':
           if (value.toLowerCase().contains('success')) {
-            this._status = UpiTransactionStatus.success;
+            _status = UpiTransactionStatus.success;
           } else if (value.toLowerCase().contains('fail')) {
-            this._status = UpiTransactionStatus.failure;
+            _status = UpiTransactionStatus.failure;
           } else if (value.toLowerCase().contains('submitted')) {
-            this._status = UpiTransactionStatus.submitted;
+            _status = UpiTransactionStatus.submitted;
           } else if (value.toLowerCase() == 's') {
-            this._status =
+            _status =
                 UpiTransactionStatus.success; // YuvaPay returns status=S
           } else {
             throw UnsupportedError('Unsupported UPI Transaction Status');
           }
           break;
         case 'txnref':
-          this._txnRef = value;
+          _txnRef = value;
       }
-    });
+    }
   }
 
   /// iOS platform constructor.
@@ -105,6 +105,7 @@ class UpiTransactionResponse {
     _launchError = error.toString();
   }
 
+  @override
   String toString() {
     return 'UpiTransactionResponse { txnId: $_txnId, responseCode: '
         '$_responseCode, approvalRefNo: $_approvalRefNo, status: $_status, '

@@ -561,6 +561,7 @@ class UpiApplication {
   static Map<String, UpiApplication> lookUpMap = {};
 
   /// Returns the platform-specific package name.
+  @override
   String toString() {
     return io.Platform.isAndroid ? androidPackageName : iosBundleId!;
   }

@@ -22,9 +22,9 @@ class UpiApplicationDiscovery implements _PlatformDiscoveryBase {
   Future<List<ApplicationMeta>> discover({
     required UpiMethodChannel upiMethodChannel,
     required Map<UpiApplication, UpiApplicationStatus> applicationStatusMap,
-    UpiApplicationDiscoveryAppPaymentType paymentType:
+    UpiApplicationDiscoveryAppPaymentType paymentType =
     UpiApplicationDiscoveryAppPaymentType.nonMerchant,
-    UpiApplicationDiscoveryAppStatusType statusType:
+    UpiApplicationDiscoveryAppStatusType statusType =
     UpiApplicationDiscoveryAppStatusType.working,
   }) async {
     if (io.Platform.isAndroid || io.Platform.isIOS) {
@@ -50,19 +50,19 @@ class _AndroidDiscovery implements _PlatformDiscoveryBase {
   Future<List<ApplicationMeta>> discover({
     required UpiMethodChannel upiMethodChannel,
     required Map<UpiApplication, UpiApplicationStatus> applicationStatusMap,
-    UpiApplicationDiscoveryAppPaymentType paymentType:
+    UpiApplicationDiscoveryAppPaymentType paymentType =
     UpiApplicationDiscoveryAppPaymentType.nonMerchant,
-    UpiApplicationDiscoveryAppStatusType statusType:
+    UpiApplicationDiscoveryAppStatusType statusType =
     UpiApplicationDiscoveryAppStatusType.working,
   }) async {
     final appsList = await upiMethodChannel.getInstalledUpiApps();
     if (appsList == null) return [];
     final List<ApplicationMeta> retList = [];
-    appsList.forEach((app) {
+    for (var app in appsList) {
       final packageName = _castToString(app['packageName']);
       final androidStatus = _getStatus(packageName, applicationStatusMap);
       if (androidStatus == null) {
-        return null;
+        continue;
       }
       if (_canUseApp(statusType, androidStatus)) {
         final icon = _castToString(app['icon']);
@@ -75,7 +75,7 @@ class _AndroidDiscovery implements _PlatformDiscoveryBase {
           preferredOrder,
         ));
       }
-    });
+    }
     return retList;
   }
 
@@ -123,9 +123,9 @@ class _IosDiscovery implements _PlatformDiscoveryBase {
   Future<List<ApplicationMeta>> discover({
     required UpiMethodChannel upiMethodChannel,
     required Map<UpiApplication, UpiApplicationStatus> applicationStatusMap,
-    UpiApplicationDiscoveryAppPaymentType paymentType:
+    UpiApplicationDiscoveryAppPaymentType paymentType =
     UpiApplicationDiscoveryAppPaymentType.nonMerchant,
-    UpiApplicationDiscoveryAppStatusType statusType:
+    UpiApplicationDiscoveryAppStatusType statusType =
     UpiApplicationDiscoveryAppStatusType.working,
   }) async {
     Map<String, UpiApplication> discoveryMap = {};
@@ -146,14 +146,14 @@ class _IosDiscovery implements _PlatformDiscoveryBase {
       final scheme = keys[idx];
       try {
         final bool? result = await upiMethodChannel.canLaunch(scheme);
-        print(result.toString());
+        //print(result.toString());
         //print('$scheme, launch-able: $result');
         if (result == true) {
           discovered.add(discoveryMap[scheme]!);
         }
-      } catch (error, stack) {
+      } catch (error) {
         //print('$scheme canLaunch error');
-        print(error);
+        //print(error);
         //print(stack);
       }
     }
@@ -200,9 +200,9 @@ abstract class _PlatformDiscoveryBase {
   Future<List<ApplicationMeta>> discover({
     required UpiMethodChannel upiMethodChannel,
     required Map<UpiApplication, UpiApplicationStatus> applicationStatusMap,
-    UpiApplicationDiscoveryAppPaymentType paymentType:
+    UpiApplicationDiscoveryAppPaymentType paymentType =
     UpiApplicationDiscoveryAppPaymentType.nonMerchant,
-    UpiApplicationDiscoveryAppStatusType statusType:
+    UpiApplicationDiscoveryAppStatusType statusType =
     UpiApplicationDiscoveryAppStatusType.working,
   });
 }

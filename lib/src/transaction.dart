@@ -39,7 +39,7 @@ class AndroidTransactionHelper implements _PlatformTransactionHelperBase {
     String? responseString =
     await upiMethodChannel.initiateTransaction(transactionDetails);
     return UpiTransactionResponse.android(
-        responseString == null ? "" : responseString);
+        responseString ?? "");
   }
 }
 
@@ -55,7 +55,7 @@ class IosTransactionHelper implements _PlatformTransactionHelperBase {
       TransactionDetails transactionDetails) async {
     try {
       final bool? result = await upiMethodChannel.launch(transactionDetails);
-      return UpiTransactionResponse.ios(result != null ? result : false);
+      return UpiTransactionResponse.ios(result ?? false);
     } catch (error, stack) {
       print('iOS UPI app launch failure: $error');
       print('iOS UPI app launch failure stack: $stack');

@@ -4,7 +4,7 @@ class _UpiException implements Exception {
   _UpiException(this.message);
 
   @override
-  String toString() => this.message;
+  String toString() => message;
 }
 
 class InvalidUpiAddressException extends _UpiException {
