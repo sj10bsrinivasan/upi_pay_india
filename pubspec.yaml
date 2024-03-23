@@ -1,6 +1,6 @@
 name: upi_pay_india
 description: upi payment gateway india
-version: 1.0.1+3
+version: 1.0.1+4
 homepage: https://github.com/sj10bsrinivasan/upi_pay_india
 
 environment:
