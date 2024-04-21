@@ -16,12 +16,6 @@ class UpiApplication {
   /// Friendly and typically a shorter version of a UPI app's name.
   final String appName;
 
-  /// As per the [UPI Linking Specification](https://www.npci.org.in/sites/default/files/UPI%20Linking%20Specs_ver%201.6.pdf),
-  /// each iOS UPI app that can be invoked directly for UPI payment must
-  /// implement the custom scheme `upi`. For the purpose of discovering an iOS
-  /// UPI app without ambiguity, we need any other unique custom scheme that the
-  /// app implements. Any such unique custom scheme, if available, is stored in
-  /// this attribute to be used for discovering this app.
   final String? discoveryCustomScheme;
 
   UpiApplication({

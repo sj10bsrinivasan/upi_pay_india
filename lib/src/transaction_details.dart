@@ -15,6 +15,7 @@ class TransactionDetails {
   final String? url;
   final String merchantCode;
   final String? transactionNote;
+  final String? appname;
 
   TransactionDetails({
     required this.upiApplication,
@@ -25,6 +26,7 @@ class TransactionDetails {
     required String amount,
     this.url,
     this.merchantCode = '',
+    required this.appname,
     this.transactionNote = 'UPI Transaction',
   }) : amount = Decimal.parse(amount) {
     if (!_checkIfUpiAddressIsValid(payeeAddress)) {
@@ -56,12 +58,16 @@ class TransactionDetails {
       'url': url,
       'mc': merchantCode,
       'tn': transactionNote,
+      'appname' : appname
     };
   }
 
+  // String uri = 'upi://pay?pa=$payeeAddress'
+
+
   @override
   String toString() {
-    String uri = 'upi://pay?pa=$payeeAddress'
+    String uri = '$appname://upi/pay?pa=$payeeAddress'
         '&pn=${Uri.encodeComponent(payeeName)}'
         '&tr=$transactionRef'
         '&tn=${Uri.encodeComponent(transactionNote!)}'

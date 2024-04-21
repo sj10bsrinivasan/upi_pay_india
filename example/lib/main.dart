@@ -77,6 +77,7 @@ class _ScreenState extends State<Screen> {
     final transactionRef = Random.secure().nextInt(1 << 32).toString();
     print("Starting transaction with id $transactionRef");
 
+    print(app.packageName);
     final a = await UpiPay.initiateTransaction(
       amount: _amountController.text,
       app: app.upiApplication,
@@ -84,6 +85,7 @@ class _ScreenState extends State<Screen> {
       receiverUpiAddress: _upiAddressController.text,
       transactionRef: transactionRef,
       transactionNote: 'UPI Payment',
+      appname: 'gpay'
       // merchantCode: '7372',
     );
 
@@ -123,7 +125,7 @@ class _ScreenState extends State<Screen> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(left: 8),
+            margin: const EdgeInsets.only(left: 8),
             child: IconButton(
               icon: Icon(
                 _isUpiEditable ? Icons.check : Icons.edit,
@@ -186,15 +188,15 @@ class _ScreenState extends State<Screen> {
           Expanded(
             child: MaterialButton(
               onPressed: () async => await _onTap(_apps![0]),
+              color: Theme.of(context).colorScheme.secondary,
+              height: 48,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(6)),
               child: Text('Initiate Transaction',
                   style: Theme.of(context)
                       .textTheme
                       .labelLarge!
                       .copyWith(color: Colors.white)),
-              color: Theme.of(context).colorScheme.secondary,
-              height: 48,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(6)),
             ),
           ),
         ],
@@ -244,7 +246,7 @@ class _ScreenState extends State<Screen> {
           ),
           if (_apps != null) _discoverableAppsGrid(),
           Container(
-            margin: EdgeInsets.only(top: 12, bottom: 12),
+            margin: const EdgeInsets.only(top: 12, bottom: 12),
             child: Text(
               'Other Supported Apps (Cannot detect)',
               style: Theme.of(context).textTheme.bodyLarge,
