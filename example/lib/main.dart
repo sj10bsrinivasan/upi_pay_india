@@ -85,7 +85,7 @@ class _ScreenState extends State<Screen> {
       receiverUpiAddress: _upiAddressController.text,
       transactionRef: transactionRef,
       transactionNote: 'UPI Payment',
-      appname: 'gpay'
+      appname: 'com.amazon.mobile.shopping'
       // merchantCode: '7372',
     );
 

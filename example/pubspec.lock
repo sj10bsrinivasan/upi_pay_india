@@ -45,18 +45,18 @@ packages:
     dependency: "direct main"
     description:
       name: cupertino_icons
-      sha256: d57953e10f9f8327ce64a508a355f0b1ec902193f66288e8cb5070e7c47eeb2d
+      sha256: ba631d1c7f7bef6b729a622b7b752645a2d076dba9976925b8f25725a30e1ee6
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.6"
+    version: "1.0.8"
   decimal:
     dependency: transitive
     description:
       name: decimal
-      sha256: "7e6735d63c3fdeff3d20b60fde7fd974145110fef414256dd53d5cfc4c1fa1b4"
+      sha256: "24a261d5d5c87e86c7651c417a5dbdf8bcd7080dd592533910e8d0505a279f21"
       url: "https://pub.dev"
     source: hosted
-    version: "1.5.0"
+    version: "2.3.3"
   fake_async:
     dependency: transitive
     description:
@@ -159,10 +159,10 @@ packages:
     dependency: transitive
     description:
       name: rational
-      sha256: "49ba0eb1a7b0d39358998cbbd4d4a384382a83ac02f433aefc567853c84ed975"
+      sha256: ba58e9e18df9abde280e8b10051e4bce85091e41e8e7e411b6cde2e738d357cf
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.1"
+    version: "2.2.2"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -238,7 +238,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "1.0.2"
+    version: "1.0.3"
   vector_math:
     dependency: transitive
     description:
